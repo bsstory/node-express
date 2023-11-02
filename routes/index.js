@@ -37,23 +37,29 @@ router.get('/auth', async function(req, res) {
   }
 });
 
+// Google Calendar API 인스턴스 생성
+const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
-router.post('/chat', async function(req, res, next) {
+router.post('/chat', async function(req, res) {
   const messageText = req.body.message.text;
 
   if (messageText.startsWith('/캘린더 ')) {
     const calendarName = messageText.replace('/캘린더 ', '').trim();
-    try {
-      const calendarList = await calendar.calendarList.list({
-        auth: oauth2Client,
-      });
 
-      const calendarId = calendarList.data.items.find(cal => cal.summary === calendarName)?.id;
+    try {
+      // 사용자의 캘린더 목록 가져오기
+      const calendarList = await calendar.calendarList.list();
+
+      // 요청한 캘린더 이름과 일치하는 캘린더 찾기
+      const calendarItem = calendarList.data.items.find(cal => cal.summary === calendarName);
+      const calendarId = calendarItem ? calendarItem.id : null;
 
       if (!calendarId) {
         return res.json({text: '캘린더를 찾을 수 없습니다.'});
       }
 
+      // 캘린더 ID로 일정 목록 가져오기
+      // 여기서는 예시로 현재 날짜의 일정만 가져옵니다.
       const now = new Date();
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
@@ -62,7 +68,6 @@ router.post('/chat', async function(req, res, next) {
       endOfDay.setDate(endOfDay.getDate() + 1);
 
       const events = await calendar.events.list({
-        auth: oauth2Client,
         calendarId,
         timeMin: startOfDay.toISOString(),
         timeMax: endOfDay.toISOString(),
@@ -87,6 +92,7 @@ router.post('/chat', async function(req, res, next) {
     res.json(reply);
   }
 });
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
