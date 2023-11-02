@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
 
 /* GET test page. */
 router.get('/test', function(req, res, next) {
-  res.send('test');
+  res.send('test33');
 });
 
 
