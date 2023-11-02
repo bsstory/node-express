@@ -10,6 +10,33 @@ const oauth2Client = new google.auth.OAuth2(
   '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',
   'https://port-0-node-express-euegqv2llofuxc6r.sel5.cloudtype.app/auth'
 );
+/*
+oauth2Client.setCredentials({
+  access_token: 'YOUR_ACCESS_TOKEN',
+  refresh_token: 'YOUR_REFRESH_TOKEN'
+});
+*/
+
+router.get('/auth', async function(req, res) {
+  const code = req.query.code;
+  if (code) {
+    try {
+      // 권한 부여 코드를 사용하여 액세스 토큰과 리프레시 토큰을 얻습니다.
+      const {tokens} = await oauth2Client.getToken(code);
+      oauth2Client.setCredentials(tokens);
+
+      // 토큰을 저장하거나 사용합니다.
+      // 예: res.send(tokens);
+      res.send('인증 성공! 이제 API를 사용할 수 있습니다.');
+    } catch (error) {
+      console.error('OAuth2 인증 에러:', error);
+      res.status(500).send('인증 중 에러가 발생했습니다.');
+    }
+  } else {
+    res.status(400).send('권한 부여 코드가 없습니다.');
+  }
+});
+
 
 router.post('/chat', async function(req, res, next) {
   const messageText = req.body.message.text;
