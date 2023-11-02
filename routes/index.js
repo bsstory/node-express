@@ -6,9 +6,9 @@ router.use(bodyParser.json());
 
 const calendar = google.calendar('v3');
 const oauth2Client = new google.auth.OAuth2(
-  'YOUR_CLIENT_ID',
-  'YOUR_CLIENT_SECRET',
-  'YOUR_REDIRECT_URI'
+  '678917972091-k3n9p26282u32mh4e7dsda6i97n449k2.apps.googleusercontent.com',
+  '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',
+  'https://port-0-node-express-euegqv2llofuxc6r.sel5.cloudtype.app/auth'
 );
 
 router.post('/chat', async function(req, res, next) {
