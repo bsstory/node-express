@@ -28,7 +28,7 @@ router.get('/auth', async function(req, res) {
 
       // 토큰을 저장하거나 사용합니다.
       // 예: res.send(tokens);
-      res.send('인증 성공! 이제 API를 사용할 수 있습니다.');
+      res.send('인증 성공! 이제 API를 사용할  있습니다.');
     } catch (error) {
       console.error('OAuth2 인증 에러:', error);
       res.status(500).send('인증 중 에러가 발생했습니다.');
@@ -52,9 +52,7 @@ router.post('/chat', async function(req, res) {
       // 권한 부여 코드를 사용하여 액세스 토큰과 리프레시 토큰을 얻습니다.
       const {tokens} = await oauth2Client.getToken(code);
       oauth2Client.setCredentials(tokens);
-      res.send('인증 성공! 이제 API를 사용할 수 있습니다.');
 
-      
       // 사용자의 캘린더 목록 가져오기
       const calendarList = await calendar.calendarList.list();
 
