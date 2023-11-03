@@ -49,6 +49,10 @@ router.post('/chat', async function(req, res) {
     try {
       const code = req.query.code;
       // 권한 부여 코드를 사용하여 액세스 토큰과 리프레시 토큰을 얻습니다.
+      if (!code) {
+      // 권한 부여 코드가 없을 경우 사용자에게 인증을 요청하는 응답을 보내야 합니다.
+      return res.status(400).json({text: '권한 부여 코드가 필요합니다.'});
+    }
       const {tokens} = await oauth2Client.getToken(code);
       oauth2Client.setCredentials(tokens);
       // Google Calendar API 인스턴스 생성
