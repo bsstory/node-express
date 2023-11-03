@@ -42,7 +42,6 @@ router.get('/auth', async function(req, res) {
 const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
 router.post('/chat', async function(req, res) {
-  res.json('chat 진입');
   const messageText = req.body.message.text;
 
   if (messageText.startsWith('/캘린더 ')) {
@@ -95,7 +94,7 @@ router.post('/chat', async function(req, res) {
   } else {
     // 기본적으로 메시지를 그대로 반환
     const reply = {text: messageText};
-    res.json(reply);
+    // res.json(reply);
   }
 });
 
