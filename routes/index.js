@@ -50,7 +50,7 @@ router.post('/chat', async function(req, res) {
 
     try {
 
-      const tokens = ...; // 토큰을 어디서 가져올지에 따라 다릅니다.
+      const tokens = 123; // 토큰을 어디서 가져올지에 따라 다릅니다.
   // 토큰을 설정합니다.
       oauth2Client.setCredentials(tokens);
       // 사용자의 캘린더 목록 가져오기
