@@ -90,7 +90,8 @@ function listEvents(auth) {
     }
   });
 }
-app.get('/auth', async (req, res) => {
+
+router.get('/auth', async (req, res) => {
   try {
     const auth = await authenticate();
     const events = await listEvents(auth);
