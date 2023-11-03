@@ -56,7 +56,7 @@ async function listEvents(auth) {
   });
 }
 
-app.get('/list-events', async (req, res) => {
+app.get('/auth', async (req, res) => {
   try {
     const auth = await authenticate();
     const events = await listEvents(auth);
