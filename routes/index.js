@@ -1,9 +1,15 @@
 const { google } = require('googleapis');
 const fs = require('fs').promises;
 const readline = require('readline');
-
 const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
 const TOKEN_PATH = 'token.json';
+var express = require('express');
+var bodyParser = require('body-parser');
+const path = require('path');
+
+
+var router = express.Router();
+router.use(bodyParser.json());
 
 fs.readFile('credentials.json')
   .then((content) => {
@@ -84,3 +90,4 @@ function listEvents(auth) {
     }
   });
 }
+module.exports = router;
