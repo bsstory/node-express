@@ -40,7 +40,20 @@ async function saveCredentials(client) {
   await fs.writeFile(TOKEN_PATH, payload);
 }
 
-
+async function authorize() {
+  let client = await loadSavedCredentialsIfExist();
+  if (client) {
+    return client;
+  }
+  client = await authenticate({
+    scopes: SCOPES,
+    keyfilePath: CREDENTIALS_PATH,
+  });
+  if (client.credentials) {
+    await saveCredentials(client);
+  }
+  return client;
+}
 
 
 /* GET home page. */
