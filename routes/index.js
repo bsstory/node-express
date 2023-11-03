@@ -17,6 +17,8 @@ oauth2Client.setCredentials({
 */
 
 router.get('/auth', async function(req, res) {
+  res.send('auth 진입');
+  
   const code = req.query.code;
   if (code) {
     try {
@@ -40,12 +42,17 @@ router.get('/auth', async function(req, res) {
 const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
 router.post('/chat', async function(req, res) {
+  res.send('chat 진입');
   const messageText = req.body.message.text;
 
   if (messageText.startsWith('/캘린더 ')) {
     const calendarName = messageText.replace('/캘린더 ', '').trim();
 
     try {
+
+      const tokens = ...; // 토큰을 어디서 가져올지에 따라 다릅니다.
+  // 토큰을 설정합니다.
+      oauth2Client.setCredentials(tokens);
       // 사용자의 캘린더 목록 가져오기
       const calendarList = await calendar.calendarList.list();
 
