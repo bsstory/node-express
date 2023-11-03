@@ -38,8 +38,7 @@ router.get('/auth', async function(req, res) {
   }
 });
 
-// Google Calendar API 인스턴스 생성
-const calendar = google.calendar({version: 'v3', auth: oauth2Client});
+
 
 router.post('/chat', async function(req, res) {
   const messageText = req.body.message.text;
@@ -52,7 +51,8 @@ router.post('/chat', async function(req, res) {
       // 권한 부여 코드를 사용하여 액세스 토큰과 리프레시 토큰을 얻습니다.
       const {tokens} = await oauth2Client.getToken(code);
       oauth2Client.setCredentials(tokens);
-
+      // Google Calendar API 인스턴스 생성
+      const calendar = google.calendar({version: 'v3', auth: oauth2Client});
       // 사용자의 캘린더 목록 가져오기
       const calendarList = await calendar.calendarList.list();
 
