@@ -48,10 +48,13 @@ router.post('/chat', async function(req, res) {
     const calendarName = messageText.replace('/캘린더 ', '').trim();
 
     try {
-
-      const tokens = 123; // 토큰을 어디서 가져올지에 따라 다릅니다.
-  // 토큰을 설정합니다.
+      const code = req.query.code;
+      // 권한 부여 코드를 사용하여 액세스 토큰과 리프레시 토큰을 얻습니다.
+      const {tokens} = await oauth2Client.getToken(code);
       oauth2Client.setCredentials(tokens);
+      res.send('인증 성공! 이제 API를 사용할 수 있습니다.');
+
+      
       // 사용자의 캘린더 목록 가져오기
       const calendarList = await calendar.calendarList.list();
 
