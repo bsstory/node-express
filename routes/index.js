@@ -45,7 +45,7 @@ async function authorize() {
   if (client) {
     return client;
   }
-  client = await authenticate({
+  client = await new google.auth.GoogleAuth({
     scopes: SCOPES,
     keyfilePath: CREDENTIALS_PATH,
   });
