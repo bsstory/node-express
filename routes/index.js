@@ -42,7 +42,7 @@ router.get('/auth', async function(req, res) {
 const calendar = google.calendar({version: 'v3', auth: oauth2Client});
 
 router.post('/chat', async function(req, res) {
-  res.send('chat 진입');
+  res.json('chat 진입');
   const messageText = req.body.message.text;
 
   if (messageText.startsWith('/캘린더 ')) {
