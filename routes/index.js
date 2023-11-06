@@ -1,6 +1,6 @@
 const process = require("process");
-const { authorize } = require("./modules/auth");
-const { listEvents } = require("./modules/listEvents");
+const { authorize } = require("../modules/auth");
+const { listEvents } = require("../modules/listEvents");
 
 var express = require('express');
 var bodyParser = require('body-parser');
