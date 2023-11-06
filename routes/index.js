@@ -2,6 +2,17 @@ const process = require("process");
 const { authorize } = require("./modules/auth");
 const { listEvents } = require("./modules/listEvents");
 
+var express = require('express');
+var bodyParser = require('body-parser');
+var router = express.Router();
+router.use(bodyParser.json());
+
+router.get('/', function(req, res, next) {
+  res.render('index.html');
+});
+
+module.exports = router;
+
 function _addDays(date, days) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
